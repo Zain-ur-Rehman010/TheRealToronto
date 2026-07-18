@@ -1,0 +1,151 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-display: "Brunson", "Bebas Neue", "Oswald", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-trt-red: var(--trt-red);
+  --color-trt-red-deep: var(--trt-red-deep);
+  --color-ink: var(--ink);
+  --color-bone: var(--bone);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* TRT brand */
+  --trt-red: oklch(0.55 0.24 27);        /* #D6001C */
+  --trt-red-deep: oklch(0.42 0.22 27);
+  --ink: oklch(0.08 0 0);                /* near pure black */
+  --bone: oklch(0.96 0.005 80);
+
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.08 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.08 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.55 0.24 27);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.14 0 0);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.14 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.55 0.24 27);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.55 0.24 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.55 0.24 27);
+}
+
+.dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.98 0 0);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    background: #000;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: #000;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection { background: var(--trt-red); color: #fff; }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 0.88;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility hairline {
+  border-color: oklch(1 0 0 / 10%);
+}
+
+@utility container-x {
+  padding-inline: 1.5rem;
+  margin-inline: auto;
+  max-width: 1440px;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 3rem; }
+}
+
+@keyframes trt-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility animate-marquee {
+  animation: trt-marquee 40s linear infinite;
+}
+
+@keyframes trt-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@utility animate-fade-up {
+  animation: trt-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes trt-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+@utility animate-pulse-dot {
+  animation: trt-pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* page-top: offset for fixed nav + ticker bar */
+@utility page-top {
+  padding-top: calc(4rem + 36px + 3rem);
+}
+@media (min-width: 768px) {
+  .page-top { padding-top: calc(5rem + 36px + 3rem); }
+}
