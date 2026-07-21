@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Menu, X, ChevronDown, Calendar, MapPin, Ticket, CreditCard, DollarSign } from "lucide-react";
 import { TrtLogo } from "./TrtLogo";
 import { UPCOMING_GAMES } from "../../lib/trt-data";
+import { createTicketCheckoutSession } from "../../lib/api/checkout.functions";
 type GameType = typeof UPCOMING_GAMES[0];
 
 const FRANCHISE_LINKS = [
@@ -371,10 +372,25 @@ function NavGameModal({ game, onClose }: { game: GameType; onClose: () => void }
   }, [onClose]);
 
   const tickets = [
-    { tier: "General Admission", price: "$25.00", desc: "Standard seating — great view of all the action", available: true },
-    { tier: "VIP", price: "TBA", desc: "Premium seating with exclusive lounge access", available: false },
-    { tier: "Courtside", price: "$50.00", desc: "Right on the floor — the ultimate game experience", available: true },
+    { tier: "General Admission", key: "general" as const, price: "$25.00", desc: "Standard seating — great view of all the action", available: true },
+    { tier: "VIP", key: null, price: "TBA", desc: "Premium seating with exclusive lounge access", available: false },
+    { tier: "Courtside", key: "courtside" as const, price: "$50.00", desc: "Right on the floor — the ultimate game experience", available: true },
   ];
+
+  const [buyingTier, setBuyingTier] = useState<string | null>(null);
+  const [buyError, setBuyError] = useState<string | null>(null);
+
+  async function handleBuy(tierKey: "general" | "courtside") {
+    setBuyingTier(tierKey);
+    setBuyError(null);
+    try {
+      const { url } = await createTicketCheckoutSession({ data: { tier: tierKey } });
+      window.location.href = url;
+    } catch {
+      setBuyError("Could not start checkout. Please try again.");
+      setBuyingTier(null);
+    }
+  }
 
   return createPortal(
     <motion.div
@@ -472,6 +488,16 @@ function NavGameModal({ game, onClose }: { game: GameType; onClose: () => void }
                     {t.price}
                   </p>
                   <p className="text-[10px] text-white/40 leading-relaxed">{t.desc}</p>
+                  {t.available && t.key && (
+                    <button
+                      onClick={() => handleBuy(t.key!)}
+                      disabled={buyingTier !== null}
+                      className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-2 text-[10px] uppercase tracking-[0.15em] font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed rounded-md"
+                      style={{ background: "linear-gradient(135deg, #dc2626, #b91c1c)" }}
+                    >
+                      {buyingTier === t.key ? "Redirecting…" : "Buy"}
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
@@ -488,21 +514,10 @@ function NavGameModal({ game, onClose }: { game: GameType; onClose: () => void }
             </div>
             <p className="text-xs text-white/50 leading-relaxed mb-4">
               Secure your seat for the inaugural Mississauga vs Scarborough Pro Am Showcase.
-              All major payment methods accepted.
+              Pay securely by card via Stripe, or reach out for cash/e-transfer.
             </p>
+            {buyError && <p className="text-xs text-trt-red mb-3">{buyError}</p>}
             <div className="flex flex-wrap gap-3">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-95"
-                style={{
-                  background: "linear-gradient(135deg, #dc2626, #b91c1c)",
-                  borderRadius: "8px",
-                  boxShadow: "0 0 24px rgba(220,38,38,0.35)",
-                }}
-                onClick={onClose}
-              >
-                <Ticket size={13} /> Buy Tickets
-              </Link>
               <div
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-semibold text-white/50"
                 style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" }}

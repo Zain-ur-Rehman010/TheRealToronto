@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Nav } from "@/components/trt/Nav";
 import { Footer } from "@/components/trt/Footer";
+import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -29,6 +30,8 @@ function ContactPage() {
   const [type, setType] = useState<string>(inquiryTypes[0]);
   const [form, setForm] = useState({ name: "", email: "", phone: "", org: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="bg-black text-white">
@@ -76,7 +79,28 @@ function ContactPage() {
                 <p className="mt-4 text-white/70">A TRT representative will respond within 48 hours.</p>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-6">
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setSubmitting(true);
+                  setError(null);
+                  const { error } = await supabase.from("contact_submissions").insert({
+                    inquiry_type: type,
+                    name: form.name,
+                    email: form.email,
+                    phone: form.phone || null,
+                    organization: form.org || null,
+                    message: form.message,
+                  });
+                  setSubmitting(false);
+                  if (error) {
+                    setError("Something went wrong. Please try again.");
+                    return;
+                  }
+                  setSent(true);
+                }}
+                className="space-y-6"
+              >
                 <p className="text-sm text-white/60">
                   You are sending a <span className="text-trt-red font-semibold">{type}</span>.
                 </p>
@@ -111,11 +135,13 @@ function ContactPage() {
                     className="mt-2 w-full bg-transparent border-b border-white/20 py-2 focus:border-trt-red outline-none resize-none"
                   />
                 </label>
+                {error && <p className="text-sm text-trt-red">{error}</p>}
                 <button
                   type="submit"
-                  className="bg-trt-red px-6 py-4 text-[11px] uppercase tracking-[0.18em] font-semibold hover:bg-white hover:text-black transition-colors"
+                  disabled={submitting}
+                  className="bg-trt-red px-6 py-4 text-[11px] uppercase tracking-[0.18em] font-semibold hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send {type}
+                  {submitting ? "Sending…" : `Send ${type}`}
                 </button>
               </form>
             )}

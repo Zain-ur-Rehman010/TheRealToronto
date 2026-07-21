@@ -20,6 +20,8 @@ import { Route as FranchisesRouteImport } from './routes/franchises'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TicketsSuccessRouteImport } from './routes/tickets.success'
+import { Route as TicketsCancelRouteImport } from './routes/tickets.cancel'
 import { Route as FranchisesSlugRouteImport } from './routes/franchises.$slug'
 
 const The24Route = The24RouteImport.update({
@@ -77,6 +79,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TicketsSuccessRoute = TicketsSuccessRouteImport.update({
+  id: '/tickets/success',
+  path: '/tickets/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TicketsCancelRoute = TicketsCancelRouteImport.update({
+  id: '/tickets/cancel',
+  path: '/tickets/cancel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FranchisesSlugRoute = FranchisesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -96,6 +108,8 @@ export interface FileRoutesByFullPath {
   '/store': typeof StoreRoute
   '/the-24': typeof The24Route
   '/franchises/$slug': typeof FranchisesSlugRoute
+  '/tickets/cancel': typeof TicketsCancelRoute
+  '/tickets/success': typeof TicketsSuccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,8 @@ export interface FileRoutesByTo {
   '/store': typeof StoreRoute
   '/the-24': typeof The24Route
   '/franchises/$slug': typeof FranchisesSlugRoute
+  '/tickets/cancel': typeof TicketsCancelRoute
+  '/tickets/success': typeof TicketsSuccessRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +141,8 @@ export interface FileRoutesById {
   '/store': typeof StoreRoute
   '/the-24': typeof The24Route
   '/franchises/$slug': typeof FranchisesSlugRoute
+  '/tickets/cancel': typeof TicketsCancelRoute
+  '/tickets/success': typeof TicketsSuccessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +159,8 @@ export interface FileRouteTypes {
     | '/store'
     | '/the-24'
     | '/franchises/$slug'
+    | '/tickets/cancel'
+    | '/tickets/success'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +175,8 @@ export interface FileRouteTypes {
     | '/store'
     | '/the-24'
     | '/franchises/$slug'
+    | '/tickets/cancel'
+    | '/tickets/success'
   id:
     | '__root__'
     | '/'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/store'
     | '/the-24'
     | '/franchises/$slug'
+    | '/tickets/cancel'
+    | '/tickets/success'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,6 +207,8 @@ export interface RootRouteChildren {
   SponsorsRoute: typeof SponsorsRoute
   StoreRoute: typeof StoreRoute
   The24Route: typeof The24Route
+  TicketsCancelRoute: typeof TicketsCancelRoute
+  TicketsSuccessRoute: typeof TicketsSuccessRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -264,6 +290,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tickets/success': {
+      id: '/tickets/success'
+      path: '/tickets/success'
+      fullPath: '/tickets/success'
+      preLoaderRoute: typeof TicketsSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tickets/cancel': {
+      id: '/tickets/cancel'
+      path: '/tickets/cancel'
+      fullPath: '/tickets/cancel'
+      preLoaderRoute: typeof TicketsCancelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/franchises/$slug': {
       id: '/franchises/$slug'
       path: '/$slug'
@@ -298,6 +338,8 @@ const rootRouteChildren: RootRouteChildren = {
   SponsorsRoute: SponsorsRoute,
   StoreRoute: StoreRoute,
   The24Route: The24Route,
+  TicketsCancelRoute: TicketsCancelRoute,
+  TicketsSuccessRoute: TicketsSuccessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
