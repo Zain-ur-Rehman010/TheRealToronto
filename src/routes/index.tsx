@@ -284,7 +284,7 @@ function GameModal({ game, onClose }: { game: typeof UPCOMING_GAMES[0]; onClose:
   const tickets = [
     { tier: "General Admission", key: "general" as const, price: "$25.00", desc: "Standard seating — great view of all the action", available: true },
     { tier: "VIP", key: null, price: "TBA", desc: "Premium seating with exclusive lounge access", available: false },
-    { tier: "Courtside", key: "courtside" as const, price: "$50.00", desc: "Right on the floor — the ultimate game experience", available: true },
+    { tier: "Courtside", key: "courtside" as const, price: "$55.00", desc: "Right on the floor — the ultimate game experience", available: true },
   ];
 
   const [buyingTier, setBuyingTier] = useState<string | null>(null);
@@ -587,7 +587,6 @@ function FeaturedStory() {
                       <MapPin size={10} /> {f.tag}
                     </p>
                     <h3 className="font-display mt-3 text-2xl leading-[0.95]">{f.city}</h3>
-                    <p className="mt-1 text-sm text-white/50">{f.name}</p>
                   </div>
                   <ArrowRight
                     size={16}
