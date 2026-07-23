@@ -374,7 +374,7 @@ function NavGameModal({ game, onClose }: { game: GameType; onClose: () => void }
   const tickets = [
     { tier: "General Admission", key: "general" as const, price: "$25.00", desc: "Standard seating — great view of all the action", available: true },
     { tier: "VIP", key: null, price: "TBA", desc: "Premium seating with exclusive lounge access", available: false },
-    { tier: "Courtside", key: "courtside" as const, price: "$55.00", desc: "Right on the floor — the ultimate game experience", available: true },
+    { tier: "Courtside", key: "courtside" as const, price: "$65.00", desc: "Right on the floor — the ultimate game experience", available: true },
   ];
 
   const [buyingTier, setBuyingTier] = useState<string | null>(null);

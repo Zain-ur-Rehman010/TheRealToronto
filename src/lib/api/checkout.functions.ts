@@ -8,7 +8,7 @@ import { getServerConfig } from "../config.server";
 // from the client, or a tampered request could buy a $25 ticket for $0.
 const TICKET_TIERS = {
   general: { label: "General Admission", amountCents: 2500 },
-  courtside: { label: "Courtside", amountCents: 5500 },
+  courtside: { label: "Courtside", amountCents: 6500 },
 } as const;
 
 export const createTicketCheckoutSession = createServerFn({ method: "POST" })
