@@ -590,7 +590,6 @@ function FeaturedStory() {
                     className="text-white/20 mt-1 group-hover:text-trt-red group-hover:translate-x-1 transition-all"
                   />
                 </div>
-                <p className="mt-4 text-xs text-white/40 leading-relaxed truncate">{f.venue}</p>
               </Link>
             </Reveal>
           ))}
