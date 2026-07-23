@@ -569,7 +569,7 @@ function FeaturedStory() {
         <Reveal>
           <p className="text-[11px] uppercase tracking-[0.25em] text-trt-red mb-3">Franchises</p>
           <h2 className="font-display text-4xl md:text-5xl leading-[0.9] mb-10">
-            Six Cities | One League
+            Six Areas | One League
           </h2>
         </Reveal>
 
@@ -583,10 +583,7 @@ function FeaturedStory() {
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-trt-red flex items-center gap-1.5">
-                      <MapPin size={10} /> {f.tag}
-                    </p>
-                    <h3 className="font-display mt-3 text-2xl leading-[0.95]">{f.city}</h3>
+                    <h3 className="font-display text-2xl leading-[0.95]">{f.city}</h3>
                   </div>
                   <ArrowRight
                     size={16}
