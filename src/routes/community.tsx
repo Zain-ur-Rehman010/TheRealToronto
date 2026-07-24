@@ -4,8 +4,6 @@ import { Footer } from "@/components/trt/Footer";
 import { Reveal } from "@/components/trt/Reveal";
 import { ArrowRight } from "lucide-react";
 import crowdImg from "@/assets/crowd-energy.jpg";
-import streetImg from "@/assets/street-ball.jpg";
-import courtImg from "@/assets/court-aerial.jpg";
 
 export const Route = createFileRoute("/community")({
   head: () => ({
@@ -22,17 +20,14 @@ const pillars = [
   {
     title: "Youth Basketball",
     desc: "Free and subsidized clinics across all six franchise markets. We develop skills, build character, and open doors for players aged 8 to 18.",
-    img: streetImg,
   },
   {
     title: "Court Rebuilds",
     desc: "Partnering with municipalities to resurface, rebuild, and activate outdoor courts in underserved neighbourhoods across the GTA.",
-    img: courtImg,
   },
   {
     title: "City Events",
     desc: "Community tournaments, open gyms, watch parties, and cultural activations that bring basketball back to the streets where it belongs.",
-    img: crowdImg,
   },
 ];
 
@@ -94,19 +89,9 @@ function CommunityPage() {
           <div className="grid md:grid-cols-3 gap-px bg-white/10">
             {pillars.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08}>
-                <div className="bg-black group">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={p.img}
-                      alt={p.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                    />
-                  </div>
-                  <div className="p-8">
-                    <h3 className="font-display text-3xl">{p.title}</h3>
-                    <p className="mt-3 text-white/60 leading-relaxed">{p.desc}</p>
-                  </div>
+                <div className="bg-black group p-8">
+                  <h3 className="font-display text-3xl">{p.title}</h3>
+                  <p className="mt-3 text-white/60 leading-relaxed">{p.desc}</p>
                 </div>
               </Reveal>
             ))}

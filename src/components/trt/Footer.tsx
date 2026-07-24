@@ -40,6 +40,7 @@ export function Footer() {
               <li><Link to="/sponsors" className="text-white/70 hover:text-trt-red transition-colors">Sponsors</Link></li>
               <li><Link to="/investors" className="text-white/70 hover:text-trt-red transition-colors">Investors</Link></li>
               <li><Link to="/contact" className="text-white/70 hover:text-trt-red transition-colors">Contact Us</Link></li>
+              <li><a href="mailto:info@therealtoronto.com" className="text-white/70 hover:text-trt-red transition-colors">info@therealtoronto.com</a></li>
             </ul>
           </div>
 

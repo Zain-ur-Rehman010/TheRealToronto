@@ -64,12 +64,6 @@ function ContactPage() {
                 </li>
               ))}
             </ul>
-
-            <div className="mt-12">
-              <p className="text-[11px] uppercase tracking-[0.25em] text-white/40">Office</p>
-              <p className="mt-4 text-white/70">Greater Toronto Area<br />Ontario, Canada</p>
-              <p className="mt-2 text-white/70">partners@trt.bball</p>
-            </div>
           </div>
 
           <div className="md:col-span-8">

@@ -52,30 +52,6 @@ function InvestorsPage() {
         </div>
       </section>
 
-      {/* Tiers */}
-      <section className="border-t border-white/10 py-24 bg-black">
-        <div className="container-x">
-          <Reveal>
-            <h2 className="font-display text-4xl md:text-5xl mb-12">Investment Categories</h2>
-          </Reveal>
-          <div className="grid md:grid-cols-2 gap-px bg-white/10">
-            {[
-              { label: "Seed Partners", desc: "Early stage capital building the operational infrastructure, including league management, content production, and franchise launches." },
-              { label: "Franchise Investors", desc: "Equity stake in an individual franchise. City-specific brand ownership with the full support of the TRT league system." },
-              { label: "Media Rights", desc: "Broadcast, streaming, and content licensing opportunities as TRT builds its distribution network." },
-              { label: "Strategic Capital", desc: "Larger institutional investment conversations for those who see the long-term play. Let's talk." },
-            ].map((item, i) => (
-              <Reveal key={item.label} delay={i * 0.07}>
-                <div className="bg-black p-10 md:p-12">
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-trt-red">{item.label}</p>
-                  <p className="mt-4 text-white/70 leading-relaxed">{item.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="border-t border-white/10 py-24">
         <div className="container-x text-center">
